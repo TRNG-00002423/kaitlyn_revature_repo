@@ -17,3 +17,5 @@ At the end, my git log looked like this:
 |/  
 * 6f72332 Initial commit: added README
 ```
+
+I also started the functions exercise on this day. The actual exercise is included in the day 2 folder, as it was completed then.
