@@ -120,6 +120,46 @@ def build_test_config(**settings):
             config[setting] = settings[setting]
     return config
 
+def analyze_results(*results):
+    """Analyze a list of test result dicts.
+
+    Args:
+        *results: test result dicts (from create_test_result)
+        {"name": name, "status": status, "duration_ms": duration_ms, "error": error}
+
+
+    Returns:
+        tuple of (passed_count, failed_count, pass_rate, avg_duration)
+    """
+    passed_count = 0
+    failed_count = 0
+    total_duration = 0
+    for result in results:
+        if result["status"] == "pass":
+            passed_count += 1
+        elif result["status"] == "fail":
+            failed_count += 1
+        total_duration += result["duration_ms"]
+    return passed_count, failed_count, passed_count * 100 / (passed_count + failed_count), total_duration / len(results)
+
+
+def generate_report(*results):
+    """Generate a formatted test report string.
+
+    Calls analyze_results() internally and formats the output.
+
+    Returns: formatted multi-line string
+    """
+    report = "Test Report\n" + "=" * 30 + "\n"
+    passed_count, failed_count, pass_rate, avg_duration = analyze_results(*results)
+    report = report + '{:<12} {:>15}\n'.format("Total Tests:", passed_count + failed_count)
+    report = report + '{:<12} {:>15}\n'.format("Passed Tests:", passed_count)
+    report = report + '{:<12} {:>15}\n'.format("Failed Tests:", failed_count)
+    report = report + '{:<12} {:>15}%\n'.format("Pass Rate:", pass_rate)
+    report = report + '{:<12} {:>15}ms\n'.format("Average Duration:", avg_duration)
+
+    return report
+
 # Tests
 assert format_test_name("Valid Login") == "test_valid_login"
 assert format_test_name("  Search Results  ") == "test_search_results"
@@ -147,3 +187,15 @@ config = build_test_config(headless=True, timeout=60)
 assert config["browser"] == "chrome"  # default
 assert config["headless"] == True     # overridden
 assert config["timeout"] == 60       # overridden
+
+results = [
+    create_test_result("test_login", "pass", 1200),
+    create_test_result("test_search", "pass", 850),
+    create_test_result("test_checkout", "fail", 2300, "Timeout"),
+    create_test_result("test_profile", "pass", 450),
+]
+passed, failed, rate, avg = analyze_results(*results)
+assert passed == 3
+assert failed == 1
+assert rate == 75.0
+print(generate_report(*results))
