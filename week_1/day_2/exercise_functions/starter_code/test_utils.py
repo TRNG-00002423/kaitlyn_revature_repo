@@ -34,6 +34,51 @@ def is_valid_test_name(name):
         return False
     return True
 
+def create_test_result(name, status="pass", duration_ms=0, error=None):
+    """Create a test result dictionary.
+
+    Args:
+        name: Test name (required)
+        status: "pass" or "fail" (default: "pass")
+        duration_ms: Execution time in ms (default: 0)
+        error: Error message if failed (default: None)
+
+    Returns:
+        dict with keys: name, status, duration_ms, error
+    """
+    return {"name": name, "status": status, "duration_ms": duration_ms, "error": error}
+
+
+def format_duration(ms, unit="ms"):
+    """Format a duration value with the specified unit.
+
+    Args:
+        ms: Duration in milliseconds
+        unit: "ms", "s", or "min" (default: "ms")
+
+    Returns:
+        Formatted string like "1,200ms" or "1.20s" or "0.02min"
+    """
+    duration = None
+    if unit == "ms":
+        duration = ms
+    elif unit == "s":
+        duration = ms / 1000
+    elif unit == "min":
+        duration = ms / 1000 / 60
+    else:
+        raise Exception("invalid unit")
+    
+
+    duration = float(duration)
+    if duration.is_integer():
+        duration = int(duration)
+        duration = format(duration, ",")
+    else:
+        duration = '{:,.2f}'.format(duration)
+    duration = duration + unit
+    return duration
+
 
 # Tests
 assert format_test_name("Valid Login") == "test_valid_login"
@@ -41,3 +86,13 @@ assert format_test_name("  Search Results  ") == "test_search_results"
 assert is_valid_test_name("test_login") == True
 assert is_valid_test_name("login_test") == False
 assert is_valid_test_name("test_") == False
+
+r1 = create_test_result("test_login")
+assert r1 == {"name": "test_login", "status": "pass", "duration_ms": 0, "error": None}
+
+r2 = create_test_result("test_checkout", status="fail", duration_ms=2300, error="Timeout")
+assert r2["status"] == "fail"
+assert r2["error"] == "Timeout"
+
+assert format_duration(1200) == "1,200ms"
+assert format_duration(1200, "s") == "1.20s"
