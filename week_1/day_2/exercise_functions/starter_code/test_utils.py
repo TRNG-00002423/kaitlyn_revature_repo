@@ -1,4 +1,5 @@
 import re
+import statistics
 def format_test_name(name):
     """Convert a human-readable name to a test function name.
 
@@ -79,6 +80,45 @@ def format_duration(ms, unit="ms"):
     duration = duration + unit
     return duration
 
+def calculate_stats(*scores):
+    """Calculate statistics for any number of scores.
+
+    Returns:
+        dict with keys: count, total, average, min, max
+
+    Raises:
+        ValueError if no scores provided
+    """
+    count = len(scores)
+    total = sum(scores)
+    average = statistics.mean(scores)
+    mini = min(scores)
+    maxi = max(scores)
+
+    return {"count": count, "total": total, "average": average, "min": mini, "max": maxi}
+
+def build_test_config(**settings):
+    """Build a test configuration with defaults.
+
+    Default config:
+        browser: "chrome"
+        headless: False
+        timeout: 30
+        retries: 0
+        base_url: "http://localhost:3000"
+
+    Any **settings passed override the defaults.
+
+    Returns: dict
+    """
+    config = {}
+    defualt_settings = {"browser": "chrome", "headless": False, "timeout": 30, "retries": 0, "base_url": "http://localhost:3000"}
+    for setting in ["browser", "headless", "timeout", "retries", "base_url"]:
+        if setting not in settings:
+            config[setting] = defualt_settings[setting]
+        else:
+            config[setting] = settings[setting]
+    return config
 
 # Tests
 assert format_test_name("Valid Login") == "test_valid_login"
@@ -96,3 +136,14 @@ assert r2["error"] == "Timeout"
 
 assert format_duration(1200) == "1,200ms"
 assert format_duration(1200, "s") == "1.20s"
+
+stats = calculate_stats(85, 92, 78, 95, 88)
+assert stats["count"] == 5
+assert stats["average"] == 87.6
+assert stats["min"] == 78
+assert stats["max"] == 95
+
+config = build_test_config(headless=True, timeout=60)
+assert config["browser"] == "chrome"  # default
+assert config["headless"] == True     # overridden
+assert config["timeout"] == 60       # overridden
