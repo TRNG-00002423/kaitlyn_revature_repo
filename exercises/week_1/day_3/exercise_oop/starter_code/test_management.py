@@ -47,3 +47,25 @@ class TestCase:
     def is_valid_name(name):
         """Check if name starts with 'test_' and has no spaces."""
         return " " in name and name[:5] == "test_"
+    
+class TestResult:
+    """The outcome of running a single test.
+
+    Instance Attributes:
+        test_name (str): Which test was run
+        status (str): "pass" or "fail"
+        duration_ms (float): How long it took
+        error_message (str or None): Error details if failed
+    """
+    # TODO: Implement
+    def __init__(self, test_name, duration_ms, error_message):
+        self.test_name = test_name
+        self.duration_ms = duration_ms
+        self.error_message = error_message
+
+    def summary(self):
+        """Return a one-line summary like: '✅ test_login (120ms)'"""
+        if self.error_message is None:
+            return f"✅ {self.test_name} ({self.duration_ms}ms)"
+        else:
+            return f"❌ {self.test_name} ({self.duration_ms}ms ({self.error_message}))"
