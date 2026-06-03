@@ -1,6 +1,7 @@
 # Task 1 Response: Installing pandas installed 4 dependencies: python-dateutil, tzdata, pytz, and numpy.
 
 import pandas as pd
+import matplotlib.pyplot as plt
 df = pd.read_csv("test_data.csv")
 
 print("══════════════════════════════════════")
@@ -27,9 +28,10 @@ shortest = df['duration_ms'].min()
 longest = df['duration_ms'].max()
 print(f"Average test duration: {round(mean,2):,}ms ({round(df['duration_ms'].mean()/1000,2):,}s)")
 print(f"Fastest test: {shortest_name} ({round(shortest,2):,}ms)")
-print(f"Slowest test: {longest_name} ({round(longest,2):,}ms)\n")
+print(f"Slowest test: {longest_name} ({round(longest,2):,}ms)")
+print(f"Standard deviation of test durations: {round(df['duration_ms'].std(),2)}ms")
 
-print("  ── By Module ──")
+print("\n  ── By Module ──")
 def format_mean(_s):
     return str(round(_s.mean(),2)) + "ms"
 
@@ -52,3 +54,5 @@ format_mapping = {"duration_ms": "{:,}ms"}
 for key, value in format_mapping.items():
     failed_df[key] = failed_df[key].apply(value.format)
 print(failed_df)
+
+df.plot.show()
