@@ -46,7 +46,7 @@ class TestCase:
     @staticmethod
     def is_valid_name(name):
         """Check if name starts with 'test_' and has no spaces."""
-        return " " in name and name[:5] == "test_"
+        return " " not in name and name[:5] == "test_"
     
 class TestResult:
     """The outcome of running a single test.
@@ -57,8 +57,9 @@ class TestResult:
         duration_ms (float): How long it took
         error_message (str or None): Error details if failed
     """
-    def __init__(self, test_name, duration_ms, error_message):
+    def __init__(self, test_name, status, duration_ms, error_message):
         self.test_name = test_name
+        self.status = status
         self.duration_ms = duration_ms
         self.error_message = error_message
 
@@ -67,7 +68,7 @@ class TestResult:
         if self.error_message is None:
             return f"✅ {self.test_name} ({self.duration_ms}ms)"
         else:
-            return f"❌ {self.test_name} ({self.duration_ms}ms ({self.error_message}))"
+            return f"❌ {self.test_name} ({self.duration_ms}ms) ({self.error_message})"
 class TestSuite:
     """A collection of test cases.
 
@@ -85,6 +86,9 @@ class TestSuite:
         self.name = name
         self.tests = tests
     
+    def __len__(self):
+        return len(self.tests)
+    
     def add_test(self, test):
         self.tests.append(test)
     
@@ -99,7 +103,7 @@ class TestSuite:
     def get_by_priority(self, priority):
         priority_tests = []
         for test in self.tests:
-            if self.priority == priority:
+            if test.priority == priority:
                 priority_tests.append(test)
         return priority_tests
     
@@ -113,6 +117,8 @@ class TestRunner:
         run(suite): Run all tests in a suite, return list of TestResult
         summary(results): Print a formatted summary
     """
+    def __init__(self):
+        pass
 
     def run(self, suite):
         """Run each test in the suite and return a list of TestResults."""
@@ -137,4 +143,23 @@ class TestRunner:
     def summary(self, results):
         summary_str = "=== Test Summary ===\n"
         for result in results:
-            print(result.summary())
+            summary_str += f"{result.summary()}\n"
+        return summary_str
+
+def main():
+    test_login = TestCase("test_login", "high", "Login is functional", ["auth"])
+    test_logout = TestCase("test_logout", "medium", "Logout is functional", ["auth"])
+    test_profile = TestCase("test_profile", "low", "Profile displays correctly", ["profile"])
+    test_search = TestCase("test_search", "medium", "Search results are displayed", ["search"])
+    test_delete = TestCase.from_dict({"name": "test_delete_fail", "priority": "high", "description": "User can delete their account", "tags": ["profile"]})
+    test_report = TestCase.from_dict({"name": "test_report", "priority": "medium", "description": "Users can submit reports", "tags": ["reports", "profile"]})
+
+    main_test_suite = TestSuite("main_test_suite", [test_login, test_logout, test_profile, test_search, test_delete, test_report])
+
+    print(f"High priority tests: {main_test_suite.get_by_priority('high')}")
+
+    tr = TestRunner()
+    results = tr.run(main_test_suite)
+    print(tr.summary(results))
+
+main()
