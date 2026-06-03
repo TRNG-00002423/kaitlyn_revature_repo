@@ -1,6 +1,14 @@
 import sys
+import csv
 SENTINEL_VALUE = -999
-scores = [88, 92, 75, -1, 63, 95, 81, 70, -5, 55, 100, 78, -999, 90, 85]
+scores = []
+
+with open('grades.csv') as csvfile:
+    reader = csv.reader(csvfile, delimiter=',')
+    for line in reader:
+        for score in line:
+            scores.append(int(score))
+        
 
 grades = [None] * len(scores)
 sum = 0
