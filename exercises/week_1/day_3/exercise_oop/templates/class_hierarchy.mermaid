@@ -1,0 +1,36 @@
+classDiagram
+    class TestCase {
+        + str name
+        + str description
+        + str priority
+        $ int totalCreated
+        + run()
+        + from_dict(data)
+        + is_valid_name(name)
+    }
+
+    class TestResult {
+        + str test_name
+        + str status
+        + float duration_ms
+        + str or None errorMessage
+        + summary(name)
+    }
+
+    class TestSuite {
+        + str name
+        + list tests
+        + add_test(test)
+        + remove_test(name)
+        + get_by_priority(priority)
+        + count()
+    }
+
+    class TestRunner {
+        run(suite)
+    }
+
+    %% TODO: Define relationships between classes
+    TestSuite --o TestCase
+    TestRunner --> TestSuite
+    TestResult ..> TestCase
