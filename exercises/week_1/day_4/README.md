@@ -1,0 +1,3 @@
+# Progress for 6/4
+* Worked with pair programming exercise (pair_programming_collections) with Curtis. Our repository can be found at [https://github.com/TRNG-00002423/Curtis-and-Kaitlyn-task-week1-thurs](https://github.com/TRNG-00002423/Curtis-and-Kaitlyn-task-week1-thurs).
+* Left early today so this is all that I had time for during the training period. Tomorrow I will work on the pandas presentation.
