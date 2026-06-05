@@ -1,12 +1,23 @@
-import numpy as np
+import pandas as pd
 
-a = [1, 2, 3]
-b = [4, 5, 6]
+s = [10, 20, 30, 40]
 
-result = [x + y for x, y in zip(a,b)] # [5, 7, 9]
-print(result)
+print(s)
 
-a = np.array([1, 2, 3])
-b = np.array([4, 5, 6])
+data = {
+    "name": ["Ken", "John", "Audy"],
+    "age": [47, 28, 29],
+    "marks": [86, 87, 85]
+}
 
-print(a + b)
+df = pd.DataFrame(data)
+print(df.head())
+print(df.info())
+
+print(df["name"])
+
+high_marks = df[df["marks"]>85]
+print(high_marks)
+
+df["passed"] = df["marks"] > 60
+print(df.head())

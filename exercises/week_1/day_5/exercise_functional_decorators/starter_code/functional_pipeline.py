@@ -57,8 +57,8 @@ by_module_duration = sorted(test_results, key = lambda test: (test["name"], test
 fail_first = sorted(test_results, key = lambda test: (test["status"], test["name"]))
 
 # Uncomment to print:
-# for r in by_duration:
-#     print(f"  {r['name']}: {r['duration_ms']}ms")
+for r in by_duration:
+    print(f"  {r['name']}: {r['duration_ms']}ms")
 
 
 # ── Task 2: map() ─────────────────────────────────────────────────────────────
@@ -67,20 +67,25 @@ section("Task 2: map()")
 
 # TODO 2a: Extract just the test names into a list.
 # Expected: ['test_login', 'test_register', 'test_logout', ...]
-names = map(lambda test: test["name"], test_results)
+names = list(map(lambda result: result["name"], test_results))
 
 # TODO 2b: Transform each record into a status badge string.
 # Format: "✅ test_login (1200ms)"  or  "❌ test_search (850ms)"
-badges = None  # TODO — use map() with a lambda
+def get_emoji(result):
+    if result["status"] == "pass":
+        return "✅"
+    else:
+        return "❌"
+badges = list(map(lambda result: f'{get_emoji(result)} {result["name"]} ({result["duration_ms"]}ms)', test_results))
 
 # TODO 2c: Extract the set of unique module names.
 # Expected: {'auth', 'search', 'checkout', 'profile'}
-modules = None  # TODO — use set() + map()
+modules = set(map(lambda result: result["module"], test_results))  #  use set() + map()
 
 # Uncomment to print:
-# print(f"  Names:   {names}")
-# for badge in badges: print(f"  {badge}")
-# print(f"  Modules: {modules}")
+print(f"  Names:   {names}")
+for badge in badges: print(f"  {badge}")
+print(f"  Modules: {modules}")
 
 
 # ── Task 3: filter() ──────────────────────────────────────────────────────────
@@ -88,19 +93,19 @@ section("Task 3: filter()")
 # ref: written/5-Friday/filter.md
 
 # TODO 3a: Get all failed tests.
-failures = None  # TODO — use filter()
+failures = list(filter(lambda test: test["status"] == "fail", test_results))  #  — use filter()
 
 # TODO 3b: Get all tests slower than 1500ms.
-slow_tests = None  # TODO — use filter()
+slow_tests = list(filter(lambda test: test["duration_ms"] < 1500, test_results))  #  — use filter()
 
 # TODO 3c: Get all tests that BOTH failed AND are slower than 1500ms.
 # Hint: combine conditions in the lambda, OR chain two filter() calls.
-critical = None  # TODO
+critical = list(filter(lambda test: test["duration_ms"] < 1500 and test["status"] == "fail", test_results))  # TODO
 
 # Uncomment to print:
-# print(f"  Failures:  {[f['name'] for f in failures]}")
-# print(f"  Slow:      {[s['name'] for s in slow_tests]}")
-# print(f"  Critical:  {[c['name'] for c in critical]}")
+print(f"  Failures:  {[f['name'] for f in failures]}")
+print(f"  Slow:      {[s['name'] for s in slow_tests]}")
+print(f"  Critical:  {[c['name'] for c in critical]}")
 
 
 # ── Task 4: reduce() ──────────────────────────────────────────────────────────
@@ -109,24 +114,32 @@ section("Task 4: reduce()")
 
 # TODO 4a: Total duration of ALL tests (in ms).
 # Expected: 15560
-total_duration = None  # TODO — use reduce() with initializer=0
+total_duration = reduce(lambda a, b: a + b["duration_ms"], test_results, 0) 
 
 # TODO 4b: Total duration of FAILED tests only.
 # Hint: chain filter() before reduce().
-total_fail_duration = None  # TODO
+total_fail_duration = reduce(lambda a, b: a + b["duration_ms"], filter(lambda test: test["status"] == "fail", test_results), 0)
 
 # TODO 4c: Find the name of the test with the LONGEST name (by character count).
-longest_name = None  # TODO — reduce() over names
+# reduce() over names
+longest_name = reduce(lambda a, b: a if len(a) > len(b["name"]) else b, test_results, "")["name"]
 
 # TODO 4d: Build a module summary dict counting tests per module.
 # Expected: {'auth': 3, 'search': 3, 'checkout': 3, 'profile': 3}
-module_counts = None  # TODO — reduce() with a dict accumulator and initializer={}
+#reduce() with a dict accumulator and initializer={}
+def incremented(dict, module):
+    if module in dict:
+        dict[module] +=1
+    else:
+        dict[module] = 1
+    return dict
+module_counts = reduce(lambda a, b: incremented(a, b["module"]), test_results, {})
 
 # Uncomment to print:
-# print(f"  Total duration:       {total_duration}ms")
-# print(f"  Total fail duration:  {total_fail_duration}ms")
-# print(f"  Longest name:         {longest_name}")
-# print(f"  Module counts:        {module_counts}")
+print(f"  Total duration:       {total_duration}ms")
+print(f"  Total fail duration:  {total_fail_duration}ms")
+print(f"  Longest name:         {longest_name}")
+print(f"  Module counts:        {module_counts}")
 
 
 # ── Task 5: zip() ─────────────────────────────────────────────────────────────
@@ -138,6 +151,14 @@ actual_codes   = [200, 500, 201, 403]
 
 # TODO 5a: Compare expected vs actual codes. Print ✅ or ❌ for each endpoint.
 # Format: "✅ /login: expected=200, actual=200"
+zipped_results = zip(endpoints, expected_codes, actual_codes)
+for endpoint, expected, actual in zipped_results:
+    emoji = ""
+    if expected == actual:
+        emoji = "✅"
+    else:
+        emoji = "❌"
+    print(f"{emoji} {endpoint}: expected={expected}, actual={actual}")
 
 # TODO 5b: Unzip test_results into 4 parallel tuples:
 #   (names, modules, durations, statuses)
