@@ -7,7 +7,7 @@ def timer(func):
     Output format: "⏱️ {func_name} completed in {seconds:.4f}s"
     """
     @wraps(func)
-    def wrapper():
+    def wrapper(*args, **kwargs):
         start = time.time()
         end = time.time()
         print(f"⏱️ {func.__name__} completed in {end-start:.4f}s")
@@ -52,7 +52,7 @@ def retry(max_attempts=3, delay=0.5, exceptions=(Exception,)):
                         print(f"⚠️ Attempt {attempt}/{max_attempts}: {exceptions}. Retrying in {delay}s...")
                         time.sleep(delay)
                     attempt += 1
-            return func(*args, **kwargs)
+            return func
         return wrapper
             
     return decorator
@@ -72,24 +72,42 @@ assert result == "success"
 
 
 
-def log_calls():
+
+
+def log_calls(func):
     """Decorator that logs function calls with arguments and return value.
 
     Output:
         "📞 Calling func_name(arg1, arg2, key=val)"
         "✅ func_name → return_value"
     """
-    def decorator(func):
-        def wrapper(*args, **kwargs):
-            print(f"📞 Calling {func.__name__}({args}, {kwargs})")
-            return_value = func(*args, **kwargs)
-            print(f"✅ {func.__name__} → {return_value}")
-            return return_value
-        return wrapper
-    return decorator
+    def wrapper(*args, **kwargs):
+        print(f"📞 Calling {func.__name__}({args}, {kwargs})")
+        return_value = func(*args, **kwargs)
+        print(f"✅ {func.__name__} → {return_value}")
+        return return_value
+    return wrapper
 
-@log_calls()
-def scream(text, num_exclamations):
+@timer
+@log_calls
+@retry(max_attempts=2, delay=0.1)
+def scream(text="ahh", num_exclamations=1):
     return f"{text.upper()}" + ("!" * num_exclamations)
 
-scream("hello", 20)
+scream("hey", 5)
+
+@timer
+@log_calls
+@retry(max_attempts=2, delay=0.1)
+def process_data(data):
+    """Process data with timing, logging, and retry."""
+    if not data:
+        raise ValueError("Empty data")
+    return [x * 2 for x in data]
+
+result = process_data([1, 2, 3])
+
+#Order:
+# 1. timer
+# 2. log calls
+# 3. retry
