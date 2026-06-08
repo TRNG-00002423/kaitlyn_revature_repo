@@ -12,9 +12,16 @@ from __future__ import annotations
 import csv
 import sys
 from functools import reduce
+import json
+import argparse
 
 def main() -> None:
     # Your implementation here
+
+    parser = argparse.ArgumentParser(prog=__name__)
+    parser.add_argument('outputfile', default="summary",nargs='?')
+    args = parser.parse_args()
+    output_file = args.outputfile
 
     sales = []
     bad_rows = 0
@@ -33,7 +40,7 @@ def main() -> None:
             sys.stderr.write(f"bad rows: {bad_rows}")
     
     # output goes to starter_code/output/summary.txt
-    with open('output/summary.txt', "w") as file:
+    with open(f'output/{output_file}.txt', "w") as file:
         rows = len(sales)
         grand_total = reduce(lambda a, b: a + b["units"] * b["unit_price"], sales, 0)
         average_line_revenue = reduce(lambda a, b: a+(b["units"]*b["unit_price"])/len(sales), sales, 0)
@@ -49,6 +56,13 @@ def main() -> None:
         file.write(f"top_line_revenue={top_line_revenue:.2f}\n")
         file.write(f"top_sku={top_sku}\n")
         
+    with open(f'output/{output_file}.json', "w") as file:
+        data = {"rows": rows,
+                "grand_total": grand_total,
+                "average_line_revenue": average_line_revenue,
+                "top_line_revenue": top_line_revenue,
+                "top_sku": top_sku}
+        json.dump(data, file)
 
     # raise NotImplementedError("Complete this exercise")
 
