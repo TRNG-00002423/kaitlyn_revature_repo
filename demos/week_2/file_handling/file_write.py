@@ -1,0 +1,7 @@
+file = open("notes.txt", "w")
+file.write("come follow me into the dark\n")
+file.write("with your heart as the ark that shall shine you the way\n")
+file.write("because i'm with you in the dark\n")
+file.write("with your heart as my mark which will guide you the way through the waves\n")
+file.writelines(['a', 'b', 'c'])
+file.close()
