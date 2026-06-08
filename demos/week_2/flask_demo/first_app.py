@@ -27,5 +27,15 @@ def user1_name():
     name = request.args.get("name")
     return f"Hello {name}!!!"
 
+@app.route("/user2")
+def user2_name():
+    name = request.args.get("name")
+    role = request.args.get("role")
+    return f"Hello {name}, you are a(n) {role}!"
+
+@app.route("/add/<int:num1>/<int:num2>")
+def sum(num1, num2):
+    return f"{num1} + {num2} = {num1 + num2}"
+
 if __name__ == "__main__":
     app.run(debug=True)
