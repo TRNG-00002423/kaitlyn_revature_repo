@@ -34,7 +34,13 @@ public class BuggyReport {
 
     /** BUG 1: missing null guard — NPE when user is null */
     static String buildLabel(String user) {
-        String trimmed = user.trim();
+        String trimmed;
+        if (user != null) {
+            trimmed = user.trim();
+        } else {
+            trimmed = "";
+        }
+
         if (trimmed.isEmpty()) {
             return "guest";
         }
@@ -43,7 +49,7 @@ public class BuggyReport {
 
     /** BUG 2: inverted comparison — should allow when roleLevel >= required */
     static boolean allowAccess(int roleLevel, int required) {
-        return roleLevel < required;
+        return roleLevel >= required;
     }
 
     /** BUG 3: integer division — need floating-point average */
@@ -52,23 +58,24 @@ public class BuggyReport {
         for (int v : values) {
             sum += v;
         }
-        return sum / values.length;
+        return (double) sum / values.length;
     }
 
     /** BUG 4: found index never returned */
     static int findFirst(int[] arr, int target) {
+        int found = -1;
         for (int i = 0; i < arr.length; i++) {
             if (arr[i] == target) {
-                int found = i;
+                found = i;
             }
         }
-        return -1;
+        return found;
     }
 
     /** BUG 5: off-by-one — i <= length throws or skips wrong */
     static int countWords(String[] words) {
         int c = 0;
-        for (int i = 0; i <= words.length; i++) {
+        for (int i = 0; i < words.length; i++) {
             if (words[i] != null && !words[i].isEmpty()) {
                 c++;
             }
