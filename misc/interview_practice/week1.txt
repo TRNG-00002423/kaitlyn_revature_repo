@@ -1,0 +1,9 @@
+Questions + Answers + Notes
+
+Q1: What is Git, and how does a distributed version control system differ from a centralized one?
+A1: Git is a very popular distributed version control system. Distributed control systems like Git allow contributers to make
+    their own copies (clones) of a remote repository, means that contributors have personal working directories. Contributors
+    can work on features/branches individually and they only have to worry about working in changes with other peoples' work
+    when they merge their work with changes from another person's working directory. A centralized version control system, 
+    on the other hand, only has one simultaneous working directory, which all contributors need to share.
+N1: 
