@@ -6,4 +6,90 @@ A1: Git is a very popular distributed version control system. Distributed contro
     can work on features/branches individually and they only have to worry about working in changes with other peoples' work
     when they merge their work with changes from another person's working directory. A centralized version control system, 
     on the other hand, only has one simultaneous working directory, which all contributors need to share.
-N1: 
+N1: In a distibuted system, every copy clones the repo and its history.
+
+Q2: Name Git's three main areas and describe what happens when you run git add and git commit.
+A2: Git's three main areas are the working directory, the staging area, and the repository. When a contributor runs git add,
+    their work is added to their working directory such that any changes they make to the files they add is tracked in their
+    working directory's history. When that contributor then runs git commit, the changes they make are moved from their working
+    directory to the staging area, which prepares this content to later be pushed to a repository.
+N2: Off by one here: git add moves content from the working directory to the working directory to the staging area, and git 
+    commit moves the content from the staging area to the repository. Note that repository doesn't necessarily mean a *central*
+    repository; in this example, the contributor still commits their changes to their own repository.
+
+Q3: What is a Python virtual environment, and why is dependency isolation important?
+A3: A Python virtual environment is a collection of Python packages that is local to a specific project. In other words, a 
+    programmer using a Python virtual environment for a project will install new packages to their virtual environment 
+    rather than globally installing new packages on their computer. Using a Python virtual environment makes it easy to record
+    what version of Python and specific module versions were used for a project, such that when a new person works on this project,
+    they can easily set up a virtual environment identical to the one originally used. Dependency isolation is important because
+    not isolating dependencies can lead to different developers installing different versions of a module/package for a single 
+    project, which can lead to inconsistent or incorrect behavior on different devices.
+N3: Specifically, a Python virtual environment is *isolated*. Note that when a package is updated, dependency isolation prevents
+    this update from breaking a project that uses an older version of the package.
+
+Q4: What does the LEGB rule describe in Python?
+A4: The LEGB rule describes the different scopes that Python uses, in order from smallest- to largest-scope. Respectively, these
+    scopes are local, enclosing, global, and built-in. When referring to a variable, method, or class in Python, Python will default
+    to using the one with the innermost scope.
+N4: Terminology note. LEGB is the order in which Python *resolves names*. The jist of this is correct, though.
+
+Q5: How do lists, tuples, and sets differ in terms of mutability, ordering, and duplicates?
+A5: Lists are mutable, ordered, and allow duplicates. Tuples are immutable, ordered, and allow duplicates. Sets are mutable,
+    unordered, and don't allow duplicates.
+N5: correct yippee
+
+Q6: What are the four pillars of object-oriented programming (OOP)? 
+A6: The four pillars of OOP are inheritance, abstraction, encapsulation, and isolation(???)
+N6: polymorphism!!!!!
+
+Q7: When calling a function, what rule applies to mixing positional and keyword arguments?
+A7: A function can have any number of positional and keyword arguments. However, when a function has both positional and keyword
+    arguments, no positional arguments can be listed after a keyword argument has been listed. In other words, positional arguments
+    should go first.
+N7: When you try to put a keyword argument before a positoinal argument, Python throws a SyntaxError.
+
+Q8: What is the difference between using print() and the logging module for application output?
+A8: The method print() will always print something to the command line. The logging module can print messages to the command line,
+    but it is much more versatile than print(), as it also allows writing messages to a file. The logging module has many more 
+    options than print(), including log configurations, severity levels, and time stamps.
+N8: The logging module is configurable at runtime, making it more appropriate for production and for longer-term automation.
+
+Q9: What is a Python decorator, and what does @decorator_name above a function mean?
+A9: A Python decorator is a function that produces and returns a wrapper for another function. @decorator_name above a function
+    means that the function being defined is being wrapped with whatever function the previously declared decorator decorator_name
+    returns.
+N9: @decorator_name is syntactic sugar for something like func = decorator_name(func).
+
+Q10: In a try / except / else / finally structure, when does each of else and finally run?
+A10: The code inside else will run after the code in the try block has successfully run, i.e. if none of the code in the except 
+     block has been reached. The finally block will always run, regardless of whether or not the code in the try block ran
+     successfully.
+N10: language: "when an exception has/hasn't occurred"
+
+Q11: What is an iterable versus an iterator in Python?
+A11: An iterable is a data structure in Python whose members can be iterated through, which includes things like lists and tuples.
+     An iterator is an object in Python with a __next__ method, which allows getting the next member.
+N11: An iterable (correctly including lists + tuples) is an object that can *return* an iterator through the dunder method
+     __iter__().
+
+Q12: Why is add_item(item, items=[]) dangerous, and what pattern should you use instead?
+A12: This is dangerous because defining the default value [] for items creates an object reference when add_item is defined, *not*
+     every time add_item is called. Every time add_item is called without specifying a value for items, add_item modifies the
+     same list that was created upon function definition. So the second time add_item is invoked with no specified value for items,
+     add_items will modify the same list that was returned/modified the first time the function was invoked, and those two lists
+     would have the same pointer. Instead, choose an arbitrary default value (e.g. None) for items and assign items to a value
+     within the function if items == None.
+N12: pretty good
+
+Q13: Why does the cirriculum discourage bare except: and broad except Exception: in production-style code?
+A13: In a production environment, it is important to understand the errors that code can potentially cause, and which ones are
+     expected and which ones aren't. Let's say you're adding a function that does some division. A ZeroDivisionError is reasonable
+     to expect, and the developer would likely want something like a user dividing by zero to be handled smoothly by the code and
+     for execution to continue. However, handling every error smoothly and continuing code execution could be problematic.
+     A SyntaxError, for example, is not something that should just be handled by a bare except block and would be inappropriate
+     to display to the end user. It's also inappropriate to handle a KeyboardInterrupt, as the expected behavior after interrupting
+     the terminal is for code execution to end.
+N13: Pretty good. Broad except: and except Exception: can prevent the developer from catching "real" bugs.
+
+Q
