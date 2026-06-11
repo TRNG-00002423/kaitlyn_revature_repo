@@ -92,4 +92,12 @@ A13: In a production environment, it is important to understand the errors that 
      the terminal is for code execution to end.
 N13: Pretty good. Broad except: and except Exception: can prevent the developer from catching "real" bugs.
 
-Q
+Q14: You need to increment a module-level counter from inside a function. What keyword is required, and what goes wrong if you omit it?
+A14: When incrementing a module-level counter from inside a function, use the global keyword. When the global keyword isn't used,
+     a new function-level counter is incremented instead of changing the module-level one. This is due to the LEGB rule, which
+     describes in which order Python resolves names.
+N14: Trying to call count += 1 with no global modifier will result in an UnboundLocalError, as no local variable called count
+     has been declared.
+
+Q15: How can two objects become uncollectable by reference counting alone, and what part of Python cleans them up?
+A15: ??
