@@ -1,0 +1,87 @@
+Q1: In Python, what does the with statement give you when opening a file that manual open() / close() does not guarantee?
+A1: When using open() and close() manually while file handling, sometimes the programmer might forget to close a file. Using a with
+    statement closes the file once it is no longer being used, provided that all code that accesses the file is enclosed within the with
+    block.
+N1: A with statement is a *context manager*. Even when the programmer does call close() manually, the script can still end without closing
+    the file when an exception occurs. Using a with statement avoids this scenario.
+
+Q2: What is the difference between a JDK and a JRE for a developer who needs to compile Java?
+A2: JDK and JRE mean the Java Developer Toolkit and the Java Runtime Environment respectively. 
+N2: Remember the relationship between these two - the JDK *includes* the JRE. The Java Developer Toolkit includes tools for developers, 
+    which include a compiler and a JRE. A JRE on its own runs bytecode (i.e. JDK includes the javac command, while the JRE includes 
+    the java command)
+
+Q3: What does the javac tool produce from .java source files?
+A3: javac takes a .java source file as input and it produces machine-readable bytecode, which is outputted into a .class file.
+N3: These .class files can later be executed within a JVM.
+
+Q4: In Flask, how does a URL path (e.g. /items) connect to your Python code?
+A4: Flask URL paths are defined in decorators (e.g. @app.route('/items')).  The Python code that is executed for each path is placed under
+    (i.e. wrapped within) their respective decorators.
+N4: The function under each decorator is called a "view function". When a request matches with a decorator+view function, Flask calls
+    that function and returns an HTTP response.
+
+Q5: In a standard Maven layout, where does production Java source code live?
+A5: Java source code is located in src/main/java/<whatever your classpath is>.
+N5: In addition, tests are located in src/test/java.
+
+Q6: What precondition does binary search on an array require that linear search does not?
+A6: In order to perform binary search on an array, the array must first be sorted. This is because in order to perform a binary search,
+    each iteration of the search searches an array that is half the size of the array that was searched in the previous iteration. The half
+    that is searched in the next iteration of a binary search is chosen based on whether the current node is "greater than" or "less than"
+    the target value, determined by whatever metric this array is sorted by.
+N6: Good answer, note that linear search has O(n) complexity and binary search has O(log n) complexity.
+
+Q7: In Java, why should you compare two strings for equal text with .equals() instead of == in application logic?
+A7: In Java, strings are objects. When you create a new string, you're essentially creating a pointer that points to an ordered, immutable
+    sequence of characters. When you create two strings that have the same value, they will still have two separate pointers. Therefore, when 
+    you attempt to compare them with ==, you're comparing the *pointers*, not the internal content of the strings. Unless these two strings 
+    are the exact same value or one string was assigned to be the pointer of the other, this comparison will always be false regardless of
+    the content of the strings. Using the .equals() method will instead compare the values of the strings, which is usually going to be what 
+    you actually want to do.
+N7: == compares *references*. Not sure if "reference" and "pointer" are equivalent and/or if "pointer" is fine language here?
+    It's probably okay?
+
+Q8: What does the "S" in SOLID stand for, in one sentence?
+A8: The single responsibility principle; each method should serve a single purpose.
+N8: terminology: "one reason to change"
+
+Q9: A Java file begins with package com.example.qa.app;. Under a source root, which folder path must contain that file?
+A9: Assuming no frameworks are being used, the file should be contained under com/exaample/qa/app. The name of the package is representative
+    of the folders containing the source code file.
+N9: Not "should": "must". 
+
+Q10: In Python, what is the effect of opening an existing text file with mode 'w'?
+A10: When you open an existing text file with mode 'w', you're writing in that text file. If the text file already has content in it, this 
+     content will be overwritten. If you want to add to it as opposed to writing over existing content, you need to add the "a" mode as well.
+N10: Terminology: "truncating" means emptying + overwriting from the start. 'w' will create the file if it's missing.
+
+Q11: In Java, how can two methods have the same name?
+A11: Two methods are allowed to have the same name in Java as long as their parameters are different in quantity or in type. This practice 
+     is known as "overloading" a method.
+N11: This is correct. Also note that while two methods with the same name can have different return types, return type alone is not enough 
+     to create two functions with the same name. The functions still need different parameters.
+
+Q12: You call scanner.nextInt() and then scanner.nextLine(), but nextLine() returns an empty string before you can read the user's name.
+     What is going wrong and how can you fix it?
+A12: ???
+N12: nextInt() reads the number but leaves a new line in the buffer. When you call nextLine(), you're getting that newline character instead
+     of the name you want. To fix this, call nextLine() an extra time to discard this newline.
+
+Q13: Your team's CSV pipeline must run on Windows and Linux and handle non-ASCII characters. What two practices from this week should you
+     apply in Python when reading and writing these files?
+A13: You should use a context manager (with statement) and define the specific text encoding you need, e.g. "encoding=utf-8" within that 
+     context.
+N13: encoding="utf-8" is portable across platforms.
+
+Q14: You have a large sorted array of IDs and must look up whether a value exists many times. Another list is small and unsorted. Which 
+     strategy fits each case, per this week's material?
+A14: A binary search fits the first case. The array is sorted, allowing for binary search in the first place, and needing to do this search 
+     many times means that the time saved by performing an O(log n) function rather than a O(n) function will add up to be significant.
+     While sorting the smaller list and then performing a binary search is an option, a linear search is a better fit because its small size
+     means that the overhead time spent to sort the list might not be worth the time saved by then being able to perform binary searches.
+N14: Good answer. When comparing time complexities using big-O notation, don't disregard the size of n.
+
+Q15: When implementing binary search with integer indices lo and hi, why do so many implementations set mid = lo + (hi - lo) / 2 instead of
+     (lo + hi) / 2?
+A15: 
