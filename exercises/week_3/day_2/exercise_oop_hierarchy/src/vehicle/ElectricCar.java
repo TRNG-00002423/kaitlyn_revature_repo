@@ -21,14 +21,6 @@ public class ElectricCar extends Vehicle implements AutonomousCapable {
         this.selfDriveOn = true;
     }
 
-    public void disableSelfDrive() {
-        this.selfDriveOn = false;
-    }
-
-    public double getChargeCost() {
-        return chargeCost;
-    }
-
     public void setChargeCost(double chargeCost) {
         this.chargeCost = chargeCost;
     }

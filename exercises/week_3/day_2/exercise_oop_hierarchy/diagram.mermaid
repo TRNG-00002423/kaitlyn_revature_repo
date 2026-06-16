@@ -1,0 +1,23 @@
+%% Optional: paste your final hierarchy here after whiteboard
+classDiagram
+    class Vehicle {
+        <<abstract>>
+        +fuelCostPer100Km()* double
+    }
+    class GasCar {
+        -kilosPerLiter: double
+        -costPerLiter: double
+    }
+
+    class ElectricCar {
+        -double chargeCost: double
+        -double kilosPerCharge: double
+
+    }
+    class AutonomousCapable {
+        <<interface>>
+        +boolean supportsSelfDrive()
+    }
+    Vehicle <|-- GasCar
+    Vehicle <|-- ElectricCar
+    ElectricCar <-- AutonomousCapable
