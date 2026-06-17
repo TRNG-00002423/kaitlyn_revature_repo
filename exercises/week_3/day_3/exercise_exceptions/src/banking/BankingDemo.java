@@ -35,5 +35,33 @@ public class BankingDemo {
             System.out.println("Error opening Clementine's account.");
             System.out.println(e);
         }
+
+        // Scarlett tries to transfer more money than she has to Clementine's account.
+        try {
+            veryRealBank.transfer("Scarlett", "Clementine", 1000); // she only has $900
+            System.out.println("Successfully completed money transfer!");
+        } catch (InsufficientFundsException e) {
+            System.out.println("Error transferring funds.");
+            System.out.println(e);
+        }
+
+        // After depositing funds, this transfer becomes possible.
+        try {
+            veryRealBank.getAccount("Scarlett").deposit(100);
+            veryRealBank.transfer("Scarlett", "Clementine", 1000);
+            System.out.println("Sucessfully completed money transfer!");
+        } catch (InsufficientFundsException e) {
+            System.out.println("Error transferring funds.");
+            System.out.println(e);
+        }
+
+        // Clementine tries and fails to withdraw a negative amount.
+        try {
+            veryRealBank.getAccount("Clementine").withdraw(-1000);
+            System.out.println("Successfully completed withdrawl!");
+        } catch (IllegalArgumentException e) {
+            System.out.println("Error withdrawing funds.");
+            System.out.println(e);
+        }
     }
 }
