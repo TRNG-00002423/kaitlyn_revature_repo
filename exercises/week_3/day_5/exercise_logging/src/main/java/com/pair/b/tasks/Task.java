@@ -1,4 +1,4 @@
-package com.week3day4.partner_b;
+package com.pair.b.tasks;
 
 /**
  * Partner B — comparable task for PriorityQueue.

@@ -1,0 +1,16 @@
+2026-06-19 10:39:28,905 INFO  [com.pair.a.words.WordFrequencyApp] Vocabulary: [and, collections, java, lambdas, maps, more, queues, sets]
+2026-06-19 10:39:28,907 DEBUG [com.pair.a.words.WordFrequencyApp] Counts:
+2026-06-19 10:39:28,907 DEBUG [com.pair.a.words.WordFrequencyApp] java: 3
+2026-06-19 10:39:28,907 DEBUG [com.pair.a.words.WordFrequencyApp] maps: 2
+2026-06-19 10:39:28,907 DEBUG [com.pair.a.words.WordFrequencyApp] sets: 2
+2026-06-19 10:39:28,907 DEBUG [com.pair.a.words.WordFrequencyApp] collections: 1
+2026-06-19 10:39:28,907 DEBUG [com.pair.a.words.WordFrequencyApp] queues: 1
+2026-06-19 10:39:28,907 DEBUG [com.pair.a.words.WordFrequencyApp] and: 2
+2026-06-19 10:39:28,907 DEBUG [com.pair.a.words.WordFrequencyApp] more: 1
+2026-06-19 10:39:28,907 DEBUG [com.pair.a.words.WordFrequencyApp] lambdas: 1
+2026-06-19 10:39:28,908 INFO  [com.pair.a.words.WordFrequencyApp] Top N words (N=3)
+2026-06-19 10:39:28,908 INFO  [com.pair.a.words.WordFrequencyApp] java=3
+2026-06-19 10:39:28,908 INFO  [com.pair.a.words.WordFrequencyApp] maps=2
+2026-06-19 10:39:28,908 INFO  [com.pair.a.words.WordFrequencyApp] sets=2
+2026-06-19 10:39:28,908 INFO  [com.pair.a.words.WordFrequencyApp] First dictionary entry: and
+2026-06-19 10:39:28,908 INFO  [com.pair.a.words.WordFrequencyApp] Last dictionary entry: sets

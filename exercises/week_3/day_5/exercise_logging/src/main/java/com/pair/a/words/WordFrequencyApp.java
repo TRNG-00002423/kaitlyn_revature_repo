@@ -1,4 +1,4 @@
-package com.week3day4.partner_a;
+package com.pair.a.words;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeSet;
+import java.util.logging.LogManager;
 import java.util.stream.Collectors;
 import java.util.Comparator;
 
@@ -18,6 +19,7 @@ import org.slf4j.LoggerFactory;
  */
 public class WordFrequencyApp {
     private static final Logger LOGGER = LoggerFactory.getLogger(WordFrequencyApp.class);
+
     static final String SAMPLE = """
             Java collections maps sets queues lambdas
             Java maps and sets and more Java
@@ -54,10 +56,9 @@ public class WordFrequencyApp {
         }
 
         TreeSet<String> vocabulary = new TreeSet<String>(counts.keySet());
-        LOGGER.info("Vocabulary");
-        LOGGER.info(vocabulary.toString());
+        LOGGER.info("Vocabulary: " + vocabulary.toString());
 
-        LOGGER.info("Counts");
+        LOGGER.debug("Counts:");
         for (Map.Entry<String, Integer> entry : counts.entrySet()) {
             String key = entry.getKey();
             Integer value = entry.getValue();
@@ -72,8 +73,6 @@ public class WordFrequencyApp {
         for (int i = 0; i < N; i++) {
             LOGGER.info(sortedList.get(i).toString());
         }
-
-        LOGGER.info("Dictionary ends");
         LOGGER.info("First dictionary entry: " + vocabulary.pollFirst());
         LOGGER.info("Last dictionary entry: " + vocabulary.pollLast());
     }
