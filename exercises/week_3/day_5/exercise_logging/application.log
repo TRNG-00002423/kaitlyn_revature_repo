@@ -1,0 +1,10 @@
+2026-06-18 16:59:19,057 INFO  com.week3day4.partner_a.WordFrequencyApp - Vocabulary
+2026-06-18 16:59:19,059 INFO  com.week3day4.partner_a.WordFrequencyApp - [and, collections, java, lambdas, maps, more, queues, sets]
+2026-06-18 16:59:19,059 INFO  com.week3day4.partner_a.WordFrequencyApp - Counts
+2026-06-18 16:59:19,060 INFO  com.week3day4.partner_a.WordFrequencyApp - Top N words (N=3)
+2026-06-18 16:59:19,060 INFO  com.week3day4.partner_a.WordFrequencyApp - java=3
+2026-06-18 16:59:19,060 INFO  com.week3day4.partner_a.WordFrequencyApp - maps=2
+2026-06-18 16:59:19,060 INFO  com.week3day4.partner_a.WordFrequencyApp - sets=2
+2026-06-18 16:59:19,060 INFO  com.week3day4.partner_a.WordFrequencyApp - Dictionary ends
+2026-06-18 16:59:19,060 INFO  com.week3day4.partner_a.WordFrequencyApp - First dictionary entry: and
+2026-06-18 16:59:19,060 INFO  com.week3day4.partner_a.WordFrequencyApp - Last dictionary entry: sets
