@@ -30,7 +30,6 @@ Junction tables:
 - Customers have surrogate IDs as primary keys instead of their emails.
 - Order lines have a price field to reflect the price of the product when it was purchased, even if the price of the item has since changed.
 - When an order is deleted, the order lines that reference it will be deleted as well. (on delete, cascade)
-- Deleting an address is not allowed.
-- Deleting a customer sets any foreign references to that user to NULL. This allows records of orders to be maintained even if the user who made that orders is deleted. Their address will be maintained, but it will no longer be connected to any of their other personal information.
+- Deleting a customer deletes associated addresses, and orders made by that user have the user id field set to NULL.
 - Deleting a product is not allowed to protect the integrity of the database. When you use this database, discontinued products should have their stock set to 0 rather than be removed.
 - Deleting an order line causes no additional actions.
