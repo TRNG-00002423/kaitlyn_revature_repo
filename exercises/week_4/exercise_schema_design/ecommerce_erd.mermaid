@@ -1,42 +1,40 @@
 erDiagram
     CUSTOMER ||--o{ ORDER : places
     CUSTOMER {
-        int id PK
-        text email UK
-        int phone
-        text first_name
-        text last_name
+        integer customer_id PK
+        varchar email UK
+        integer phone
+        varchar first_name
+        varchar last_name
     }
     ORDER {
-        int id PK
-        int address_id FK
-        int cust_id FK
-        text date
-        text status
+        integer order_id PK
+        integer address_id FK
+        integer cust_id FK
+        varchar date
+        varchar status
     }
     ORDER_LINE {
         string sku FK
-        int order_id FK
-        int quantity
+        integer order_id FK
+        integer quantity
         float unit_price
     }
     PRODUCT {
-        int sku PK
+        varchar sku PK
+        varchar name
         double price
-        int stock
+        integer stock
     }
     ADDRESS {
-        int address_id FK
-        int number
-        text street_name
-        int zipcode
-        text city
-        text state
+        integer address_id FK
+        integer number
+        varchar street_name
+        integer zipcode
+        varchar city
+        varchar state
     }
-    CUSTOMER_ADRESS {
-        int customer_id FK
-        int address_id FK
-    }
+
     ORDER ||--|{ ORDER_LINE : contains
     ORDER_LINE |{--}o PRODUCT: contains
     CUSTOMER |{--}| ADDRESS: has

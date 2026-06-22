@@ -8,20 +8,19 @@ Main entities:
 - Customers
 - Products
 - Orders
-- Addresses
 
 Child entities:
 - Order lines (child of orders)
 
 Junction tables:
-- Customer addresses (many-to-many relationship)
+- Customers+addresses (many-to-many relationship)
 
 
 2. For each table, list **primary key** strategy (surrogate vs natural) and important **alternate keys** (`UNIQUE`).
-- Customer: `id` (surrogate)
+- Customer: `customer_id` (surrogate)
 - Product: `sku` (natural)
-- Order: `id` (surrogate)
-- Address: `id` (surrogate)
+- Order: `order_id` (surrogate)
+- Address: `address_id` (surrogate)
 - Order line: `(order_id, sku)` (surrogate, natural)
 - Customer address: `(customer_id, address_id)` (surrogate, surrogate)
 
