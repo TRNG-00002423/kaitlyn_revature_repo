@@ -25,7 +25,7 @@ CREATE TABLE products (
 CREATE TABLE addresses (
 	customer_id INTEGER REFERENCES customers(customer_id),
     address_id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    number INTEGER NOT NULL,
+    street_no INTEGER NOT NULL,
     street_name VARCHAR(255) NOT NULL,
     city VARCHAR(255) NOT NULL,
     zip_code VARCHAR(20) NOT NULL,
@@ -37,6 +37,14 @@ CREATE TABLE orders (
 	address_id INTEGER REFERENCES addresses(address_id),
 	customer_id INTEGER REFERENCES customers(customer_id),
 	date TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE order_lines (
+	order_id INTEGER REFERENCES orders(order_id),
+	sku VARCHAR(32) REFERENCES products(sku),
+	quantity INTEGER NOT NULL CHECK (quantity > 0),
+	unit_price DECIMAL(10, 2) NOT NULL CHECK (unit_price >= 0),
+	PRIMARY KEY (order_id, sku)
 );
 
 COMMIT;
