@@ -86,4 +86,40 @@ WHERE email = 'join-b@example.com';
 
 ---------------------------------------------------------
 SELECT * FROM customer;
+SELECT * FROM product;
 SELECT * FROM order_header;
+SELECT * FROM order_line;
+
+
+-- inner: customers who have at least one order
+-- note: the default join in postgres is an inner join, but you can still make it explicit
+SELECT c.email, oh.order_id, oh.status
+FROM customer c
+INNER JOIN order_header oh ON oh.customer_id = c.customer_id
+ORDER BY c.email, oh.order_id;
+
+-- left: all customers, orders if any
+SELECT c.email, oh.order_id, oh.status
+FROM customer c
+LEFT JOIN order_header oh ON oh.customer_id = c.customer_id
+ORDER BY c.email, oh.order_id;
+
+-- right: all orders, customer column even if missing
+-- in this case with the FK, this is the same as the inner join
+SELECT c.email, oh.order_id, oh.status
+FROM customer c
+RIGHT JOIN order_header oh ON oh.customer_id = c.customer_id
+ORDER BY c.email, oh.order_id;
+
+-- full outer: customers without orders and orders without customers
+-- with foreign key enforced, orders without customers won't exist
+SELECT c.email, oh.order_id, oh.status
+FROM customer c
+FULL OUTER JOIN order_header oh ON oh.customer_id = c.customer_id
+ORDER BY c.email NULLS LAST, oh.order_id NULLS LAST;
+
+-- cross join: customers x products
+SELECT c.email, p.sku
+FROM customer c
+CROSS JOIN product p
+ORDER BY c.email, p.sku;
