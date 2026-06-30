@@ -1,0 +1,13 @@
+| ID | Title | Preconditions | Steps | Expected Result | Priority | Traceability |
+| --- | --- | --- | --- | --- | --- | --- |
+| TC-BT-1 | 1 char wishlist name (Positive + Edge) | User has ≤ 9 wishlists | `POST` to `/wishlists` new wishlist with name "A" | Wishlist is successfully created | P3 - No other tests rely on the edge case | AC1 |
+| TC-BT-2 | 40 char wishlist name (Positive + Edge) | User has ≤ 9 wishlists | `POST` to `/wishlists` new wishlist with name "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" | Wishlist is successfully created | P3 - No other tests rely on the edge case | ? |
+| TC-BT-3 | Wishlist capacity (Negative) | User has exactly 10 wishlists | Create a new wishlist with valid name | Wishlist is not created, and user should still have 10 wishlists | P2 - Integrity issue | AC1 |
+| TC-BT-4 | Duplicate wishlist names (Negative) | User has a wishlist with name "test_name" | Create a new wishlist with name "test_name" | Wish list is not created | P1 - db integrity + TC-BT-5 is dependent on this | AC1 |
+| TC-BT-5 | Duplicate trimmed wishlist names (Negative + Edge) | User has a wishlist with name "test_name" | Create a new wishlist with name "  test_name  " | Wish list is not created | P1 - same integrity concern as TC-BT-4 | AC2 (requires trailing/leading space trimming) |
+| TC-BT-6 | Full wishlist (Negative) | User has a wishlist with 50 books | Add a new book to that wishlist | `WL_FULL` is returned | P1 - database integrity | AC1 |
+| TC-BT-7 | Indempotent remove (Positive) | User has a wishlist containing a book that has since been deleted | Attempt to delete that book from wishlist | Book is successfully removed and quantity of wishlist is reduced | P3 - inability to remove a book doesn't affect db integrity | AC2 |
+| TC-BT-8 | Owner views wishlist (Positive) | User has at least 1 wishlist | User attempts to view their wishlist | Wishlist is viewed successfully | P1 - main functionality of product | AC1 |
+| TC-BT-9 | Non-owner can't view wishlist (Negative) | A user other than the authenticated user owns at least one wishlist | User attempts to get the other user's wishlist | User sees a 404 page | P1 - security concern | AC1 |
+| TC-BT-10 | Non-informative 404 (Negative) | A user attempts to view a wishlist that they don't own | User views passed 404 page | 404 page doesn't enumerate whether wishlist exists | P1 - security concern | AC2 (relies on TC-BT-9) |
+| TC-BT-11 | Wishlist return time (Performance) | A user owns a wishlist with exactly 50 books | User attempts to view this wishlist | Wishlist is returned in ≤ 800 ms (p95) | P3 - No security/integrity concerns but affects usability | AC2 |
