@@ -1,0 +1,14 @@
+%% Optional: replace with your control-flow sketch for shipping_eligibility
+flowchart TD
+  A[Start] --> B["r = region.strip.upper()"]
+  B --> C["r in (#34;FR#34;, #34;DE#34;, #34;NL#34;)?"]
+  C --"yes"--> D["return cart_subtotal >= 25"]
+  C --"no"--> E["r == #34;US#34;?"]
+  E --"yes"--> F["cart_subtotal >= 35?"]
+  F --"yes"--> H["return True"]
+  F --"no"--> I["is_member and cart_subtotal >= 50?"]
+  E --"no"--> G["return cart_subtotal >= 100"]
+  I --"yes"--> J["return True"]
+  I --"no"--> K["return False"]
+  
+  %% Add decisions for EU / US / other branches
