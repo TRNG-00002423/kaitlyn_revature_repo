@@ -51,11 +51,8 @@ public class Product {
         this.stock = stock;
     }
 
-    public double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
-    }
 }
