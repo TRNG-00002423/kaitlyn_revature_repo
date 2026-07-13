@@ -15,12 +15,15 @@ class TestOrderService:
     @allure.severity(allure.severity_level.CRITICAL)
     @allure.title("Create a valid order")
     def test_create_order_returns_id(self):
-        order_id = self.service.create_order(
-            items=[{"sku": "SKU1", "qty": 1}],
-            customer_id=100
-        )
-        assert order_id is not None
-        assert isinstance(order_id, int)
+        with allure.step("Create an order"):
+            order_id = self.service.create_order(
+                items=[{"sku": "SKU1", "qty": 1}],
+                customer_id=100
+            )
+        with allure.step("Verify order id exists"):
+            assert order_id is not None
+        with allure.step("Verify order id is an integer"):
+            assert isinstance(order_id, int)
     
     @allure.story("Orders must have at least one item")
     @allure.severity(allure.severity_level.NORMAL)
