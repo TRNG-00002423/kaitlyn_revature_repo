@@ -14,4 +14,93 @@ public class FirstSeleniumTest extends BaseTest {
         String title = driver.getTitle();
         assertTrue(title.contains("Google"), "title should contain Google");
     }
+
+    @Test
+    @DisplayName("Navigate to example.com and verify content")
+    void testNavigateToExample() {
+        driver.get("https://example.com");
+        String title = driver.getTitle();
+        String currentURL = driver.getCurrentUrl();
+
+        assertEquals("Example Domain", title);
+        assertTrue(currentURL.contains("example.com"));
+
+        WebElement heading = driver.findElement(By.tagName("h1"));
+        assertEquals("Example Domain", heading.getText());
+    }
+
+    @Test
+    @DisplayName("Navigate to practice site and find elements")
+    void testFindElements() {
+        driver.get("https://the-internet.herokuapp.com");
+        WebElement heading = driver.findElement(By.tagName("h1"));
+        assertEquals("Welcome to the-internet", heading.getText());
+
+        WebElement formAuthLink = driver.findElement(By.linkText("Form Authentication"));
+        assertTrue(formAuthLink.isDisplayed());
+        String pageSource = driver.getPageSource();
+        assertTrue(pageSource.contains("Available Examples"));
+    }
+
+    @Test
+    @DisplayName("Tests with custom website")
+    void testCustomSite() {
+        driver.get("https://compcon.app");
+        String currentURL = driver.getCurrentUrl();
+        assertTrue(currentURL.contains("compcon"));
+        WebElement heading = driver.findElement(By.className("heading"));
+        System.out.println("Found heading: " + heading.getText());
+        assertEquals("COMPENDIUM", heading.getText());
+        WebElement title = driver.findElement(By.id("title"));
+        System.out.println("Found title: " + title.getText());
+        assertEquals("COMP/CON", title.getText());
+    }
+
+    @Test
+    @DisplayName("Fill and submit login form")
+    void testLoginForm() {
+        driver.get("https://the-internet.herokuapp.com/login");
+        WebElement usernameField = driver.findElement(By.id("username"));
+        usernameField.sendKeys("tomsmith");
+        WebElement passwordField = driver.findElement(By.id("password"));
+        passwordField.sendKeys("SuperSecretPassword!");
+        WebElement loginButton = driver.findElement(By.cssSelector("button[type='submit']"));
+        loginButton.click();
+        WebElement flashMessage = driver.findElement(By.id("flash"));
+        assertTrue(flashMessage.getText().contains("You logged into a secure area!"));
+    }
+
+    @Test
+    @DisplayName("Test invalid login")
+    void testInvalidLogin() {
+        driver.get("https://the-internet.herokuapp.com/login");
+        driver.findElement(By.id("username")).sendKeys("invalid");
+        driver.findElement(By.id("password")).sendKeys("invalid");
+        driver.findElement(By.cssSelector("button[type='submit']")).click();
+
+        WebElement flashMessage = driver.findElement(By.id("flash"));
+        assertTrue(flashMessage.getText().contains("Your username is invalid!"));
+    }
+
+    @Test
+    @DisplayName("Test form clearing")
+    void testFormClearing() {
+        driver.get("https://the-internet.herokuapp.com/login");
+        WebElement usernameField = driver.findElement(By.id("username"));
+        usernameField.sendKeys("some text");
+        assertEquals("some text", usernameField.getAttribute("value"));
+        usernameField.clear();
+        assertEquals("", usernameField.getAttribute("value"));
+        usernameField.sendKeys("new text");
+        assertEquals("new text", usernameField.getAttribute("value"));
+    }
+
+    @Test
+    @DisplayName("Test logout")
+    void testLogOut() {
+        driver.get("https://the-internet.herokuapp.com/login");
+        driver.findElement(By.id("username")).sendKeys("tomsmith");
+        driver.findElement(By.id("password")).sendKeys("SuperSecretPassword!");
+        driver.findElement(By.cssSelector("button[type='submit']")).click();
+    }
 }
