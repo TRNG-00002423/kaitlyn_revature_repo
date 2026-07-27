@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 
-public class Test_PW01Demo {
+public class Playwright01DemoTest {
     @Test
     @DisplayName("Basic Playwright Setup")
     void basicTest() {

@@ -38,4 +38,9 @@ public abstract class BaseTest {
         }
         context.close();
     }
+
+    protected void navigateTo(String path) {
+        String baseUrl = System.getenv().getOrDefault("BASE_URL", "https://the-internet.herokuapp.com");
+        page.navigate(baseUrl + path);
+    }
 }
