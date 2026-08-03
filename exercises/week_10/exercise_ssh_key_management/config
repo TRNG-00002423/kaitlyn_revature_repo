@@ -1,0 +1,10 @@
+Host web-server-training-aug3
+  HostName 54.204.235.72
+  User ec2-user
+  IdentityFile ~/.ssh/web-server-key.pem
+  StrictHostKeyChecking no
+
+Host my-server-training-aug3
+  HostName 0.0.0.0
+  User ec2-user
+  IdentityFile ~/.ssh/my-custom-key

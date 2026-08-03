@@ -1,0 +1,62 @@
+OpenSSH_9.9p2, LibreSSL 3.3.6
+debug1: Reading configuration data /Users/kaitlyn/.ssh/config
+debug1: /Users/kaitlyn/.ssh/config line 5: Applying options for web-server-training-aug3
+debug1: Reading configuration data /etc/ssh/ssh_config
+debug1: /etc/ssh/ssh_config line 21: include /etc/ssh/ssh_config.d/* matched no files
+debug1: /etc/ssh/ssh_config line 54: Applying options for *
+debug1: Authenticator provider $SSH_SK_PROVIDER did not resolve; disabling
+debug1: Connecting to 54.204.235.72 [54.204.235.72] port 22.
+debug1: Connection established.
+debug1: identity file /Users/kaitlyn/.ssh/web-server-key.pem type -1
+debug1: identity file /Users/kaitlyn/.ssh/web-server-key.pem-cert type -1
+debug1: Local version string SSH-2.0-OpenSSH_9.9
+debug1: Remote protocol version 2.0, remote software version OpenSSH_8.7
+debug1: compat_banner: match: OpenSSH_8.7 pat OpenSSH* compat 0x04000000
+debug1: Authenticating to 54.204.235.72:22 as 'ec2-user'
+debug1: load_hostkeys: fopen /Users/kaitlyn/.ssh/known_hosts2: No such file or directory
+debug1: load_hostkeys: fopen /etc/ssh/ssh_known_hosts: No such file or directory
+debug1: load_hostkeys: fopen /etc/ssh/ssh_known_hosts2: No such file or directory
+debug1: SSH2_MSG_KEXINIT sent
+debug1: SSH2_MSG_KEXINIT received
+debug1: kex: algorithm: curve25519-sha256
+debug1: kex: host key algorithm: ssh-ed25519
+debug1: kex: server->client cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
+debug1: kex: client->server cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
+debug1: expecting SSH2_MSG_KEX_ECDH_REPLY
+debug1: SSH2_MSG_KEX_ECDH_REPLY received
+debug1: Server host key: ssh-ed25519 SHA256:hBiC7iKL68LXngfp3TL+Af5/qGdLx8OH6Fcu9kjjPE8
+debug1: load_hostkeys: fopen /Users/kaitlyn/.ssh/known_hosts2: No such file or directory
+debug1: load_hostkeys: fopen /etc/ssh/ssh_known_hosts: No such file or directory
+debug1: load_hostkeys: fopen /etc/ssh/ssh_known_hosts2: No such file or directory
+debug1: Host '54.204.235.72' is known and matches the ED25519 host key.
+debug1: Found key in /Users/kaitlyn/.ssh/known_hosts:6
+debug1: ssh_packet_send2_wrapped: resetting send seqnr 3
+debug1: rekey out after 134217728 blocks
+debug1: SSH2_MSG_NEWKEYS sent
+debug1: expecting SSH2_MSG_NEWKEYS
+debug1: ssh_packet_read_poll2: resetting read seqnr 3
+debug1: SSH2_MSG_NEWKEYS received
+debug1: rekey in after 134217728 blocks
+debug1: SSH2_MSG_EXT_INFO received
+debug1: kex_ext_info_client_parse: server-sig-algs=<ssh-ed25519,sk-ssh-ed25519@openssh.com,ssh-rsa,rsa-sha2-256,rsa-sha2-512,ssh-dss,ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521,sk-ecdsa-sha2-nistp256@openssh.com,webauthn-sk-ecdsa-sha2-nistp256@openssh.com>
+debug1: SSH2_MSG_SERVICE_ACCEPT received
+debug1: Authentications that can continue: publickey,gssapi-keyex,gssapi-with-mic
+debug1: Next authentication method: publickey
+debug1: get_agent_identities: bound agent to hostkey
+debug1: get_agent_identities: ssh_fetch_identitylist: agent contains no identities
+debug1: Will attempt key: /Users/kaitlyn/.ssh/web-server-key.pem  explicit
+debug1: Trying private key: /Users/kaitlyn/.ssh/web-server-key.pem
+Authenticated to 54.204.235.72 ([54.204.235.72]:22) using "publickey".
+debug1: channel 0: new session [client-session] (inactive timeout: 0)
+debug1: Requesting no-more-sessions@openssh.com
+debug1: Entering interactive session.
+debug1: pledge: filesystem
+debug1: client_input_global_request: rtype hostkeys-00@openssh.com want_reply 0
+debug1: client_input_hostkeys: searching /Users/kaitlyn/.ssh/known_hosts for 54.204.235.72 / (none)
+debug1: client_input_hostkeys: searching /Users/kaitlyn/.ssh/known_hosts2 for 54.204.235.72 / (none)
+debug1: client_input_hostkeys: hostkeys file /Users/kaitlyn/.ssh/known_hosts2 does not exist
+debug1: client_input_hostkeys: no new or deprecated keys from server
+debug1: Remote: /home/ec2-user/.ssh/authorized_keys:1: key options: agent-forwarding port-forwarding pty user-rc x11-forwarding
+debug1: Sending environment.
+debug1: channel 0: setting env LANG = "en_US.UTF-8"
+debug1: pledge: fork
