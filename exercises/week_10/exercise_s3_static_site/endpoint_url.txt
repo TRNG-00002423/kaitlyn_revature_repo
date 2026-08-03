@@ -1,1 +1,1 @@
-http://54.204.235.72
+http://week10-static-site-kaitlynmalsky-2026.s3-website-us-east-1.amazonaws.com/
