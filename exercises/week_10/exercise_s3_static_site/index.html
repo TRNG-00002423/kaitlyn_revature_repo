@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 10 - S3 Static Website</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            min-height: 100vh;
+            background: #0f0f23;
+            color: #cccccc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            text-align: center;
+        }
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #00d4ff, #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem 0;
+            backdrop-filter: blur(10px);
+        }
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: rgba(0,212,255,0.1);
+            border-radius: 8px;
+        }
+        .feature-icon {
+            font-size: 2rem;
+        }
+        .badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #00d4ff, #7c3aed);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-top: 1rem;
+        }
+        a { color: #00d4ff; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 S3 Static Website</h1>
+        <p>Hosted on Amazon S3 - No servers required!</p>
+        <p>this is some text that I added to the website in the new version</p>
+        
+        <div class="card">
+            <h2>Week 10: From Code to Cloud</h2>
+            <p>This website demonstrates S3 static hosting capabilities.</p>
+            
+            <div class="feature">
+                <span class="feature-icon">📦</span>
+                <div>
+                    <strong>Simple Storage Service</strong>
+                    <p>Unlimited storage, pay only for what you use</p>
+                </div>
+            </div>
+            
+            <div class="feature">
+                <span class="feature-icon">🌐</span>
+                <div>
+                    <strong>Global Distribution</strong>
+                    <p>Combine with CloudFront for worldwide delivery</p>
+                </div>
+            </div>
+            
+            <div class="feature">
+                <span class="feature-icon">💰</span>
+                <div>
+                    <strong>Cost Effective</strong>
+                    <p>Perfect for static content, documentation, SPAs</p>
+                </div>
+            </div>
+            
+            <span class="badge">AWS Free Tier Eligible</span>
+        </div>
+        
+        <p>Test the <a href="nonexistent-page.html">error page</a></p>
+    </div>
+</body>
+</html>
