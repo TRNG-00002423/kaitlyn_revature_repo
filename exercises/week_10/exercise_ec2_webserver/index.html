@@ -1,0 +1,49 @@
+sudo bash -c 'cat > /usr/share/nginx/html/index.html << EOF
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Week 10 - AWS Exercise</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            color: #eee;
+        }
+        .card {
+            background: rgba(255,255,255,0.1);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        h1 { color: #00d9ff; }
+        .meta { color: #888; font-size: 0.9em; }
+        code { 
+            background: rgba(0,217,255,0.2); 
+            padding: 2px 8px; 
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>🚀 Hello from AWS EC2!</h1>
+        <p>This web server is running on:</p>
+        <ul>
+            <li><strong>Service:</strong> Amazon EC2</li>
+            <li><strong>OS:</strong> Amazon Linux 2023</li>
+            <li><strong>Web Server:</strong> nginx</li>
+            <li><strong>Instance Type:</strong> t2.micro</li>
+        </ul>
+        <p class="meta">
+            Instance ID: $(curl -s http://169.254.169.254/latest/meta-data/instance-id)<br>
+            Availability Zone: $(curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone)
+        </p>
+    </div>
+</body>
+</html>
+EOF'
