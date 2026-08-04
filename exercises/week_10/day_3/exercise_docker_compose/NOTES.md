@@ -1,0 +1,1 @@
+When `docker compose down -v`, the Docker display interface displays that the volume postgres-data was removed in addition to the containers and the network.

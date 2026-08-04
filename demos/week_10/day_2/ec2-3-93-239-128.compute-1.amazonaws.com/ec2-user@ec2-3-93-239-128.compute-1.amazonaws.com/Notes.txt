@@ -1,9 +1,0 @@
-#for just backend
-docker build -t myapp:v1 . 
-docker run -d -p 8080:8080 myapp:v1
-
-
-
-
-#also 
-docker build -t reactapp:v1 . 
