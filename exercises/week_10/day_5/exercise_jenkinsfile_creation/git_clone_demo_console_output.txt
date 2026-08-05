@@ -1,0 +1,68 @@
+Started by user Jenkins Admin
+
+Running as SYSTEM
+Building in workspace /var/jenkins_home/workspace/git-clone-demo
+The recommended git tool is: NONE
+No credentials specified
+ > git rev-parse --resolve-git-dir /var/jenkins_home/workspace/git-clone-demo/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/jenkins-docs/simple-java-maven-app.git # timeout=10
+Fetching upstream changes from https://github.com/jenkins-docs/simple-java-maven-app.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.47.3'
+ > git fetch --tags --force --progress -- https://github.com/jenkins-docs/simple-java-maven-app.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/master^{commit} # timeout=10
+Checking out Revision d346d704ff74eb421430787d68a9e3e88cb3320c (refs/remotes/origin/master)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f d346d704ff74eb421430787d68a9e3e88cb3320c # timeout=10
+Commit message: "Merge pull request #1354 from jenkins-docs/dependabot/maven/org.apache.maven.plugins-maven-jar-plugin-3.5.1"
+ > git rev-list --no-walk d346d704ff74eb421430787d68a9e3e88cb3320c # timeout=10
+[git-clone-demo] $ /bin/sh -xe /tmp/jenkins8376785357599540728.sh
++ echo =========================================
+=========================================
++ echo Git Clone Demo Build
+Git Clone Demo Build
++ echo =========================================
+=========================================
++ echo 
+
++ echo Git information:
+Git information:
++ git log --oneline -5
+d346d70 Merge pull request #1354 from jenkins-docs/dependabot/maven/org.apache.maven.plugins-maven-jar-plugin-3.5.1
+6e5d1fc Bump org.apache.maven.plugins:maven-jar-plugin from 3.5.0 to 3.5.1
+6feb5f4 Merge pull request #1348 from jenkins-docs/dependabot/maven/org.junit.jupiter-junit-jupiter-api-6.1.2
+b6aeda9 Bump org.junit.jupiter:junit-jupiter-api from 6.1.1 to 6.1.2
+15651bb Merge pull request #1347 from jenkins-docs/dependabot/maven/org.junit.jupiter-junit-jupiter-api-6.1.1
++ echo 
+
++ echo Files in project:
+Files in project:
++ find . -type f -name *.java
++ head -10
+./src/test/java/com/mycompany/app/AppTest.java
+./src/main/java/com/mycompany/app/App.java
++ echo 
+
++ echo README Content:
+README Content:
++ head -20 README.md
+# simple-java-maven-app
+
+This repository is for the
+[Build a Java app with Maven](https://jenkins.io/doc/tutorials/build-a-java-app-with-maven/)
+tutorial in the [Jenkins User Documentation](https://jenkins.io/doc/).
+
+The repository contains a simple Java application which outputs the string
+"Hello world!" and is accompanied by a couple of unit tests to check that the
+main application works as expected. The results of these tests are saved to a
+JUnit XML report.
+
+The `jenkins` directory contains an example of the `Jenkinsfile` (i.e. Pipeline)
+you'll be creating yourself during the tutorial and the `jenkins/scripts` subdirectory
+contains a shell script with commands that are executed when Jenkins processes
+the "Deliver" stage of your Pipeline.
++ echo =========================================
+=========================================
+Archiving artifacts
+Finished: SUCCESS
