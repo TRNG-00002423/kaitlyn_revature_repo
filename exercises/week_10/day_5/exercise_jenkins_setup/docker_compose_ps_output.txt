@@ -1,0 +1,2 @@
+``NAME      IMAGE                 COMMAND                  SERVICE   CREATED              STATUS              PORTS
+jenkins   jenkins/jenkins:lts   "/usr/bin/tini -- /u…"   jenkins   About a minute ago   Up About a minute   0.0.0.0:8080->8080/tcp, [::]:8080->8080/tcp, 0.0.0.0:50000->50000/tcp, [::]:50000->50000/tcp``
