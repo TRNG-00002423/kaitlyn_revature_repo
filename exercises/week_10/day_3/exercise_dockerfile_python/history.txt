@@ -1,0 +1,8 @@
+IMAGE          CREATED          CREATED BY                                      SIZE      COMMENT
+d22fce84e7e3   14 minutes ago   CMD ["python" "app.py"]                         0B        buildkit.dockerfile.v0
+<missing>      14 minutes ago   EXPOSE [5001/tcp]                               0B        buildkit.dockerfile.v0
+<missing>      14 minutes ago   ENV FLASK_ENV=production                        0B        buildkit.dockerfile.v0
+<missing>      14 minutes ago   ENV APP_VERSION=1.0.0                           0B        buildkit.dockerfile.v0
+<missing>      14 minutes ago   COPY app.py . # buildkit                        12.3kB    buildkit.dockerfile.v0
+<missing>      14 minutes ago   RUN /bin/sh -c pip install --no-cache-dir -r…   19.3MB    buildkit.dockerfile.v0
+<missing>      14 minutes ago   COPY requirements.txt . # buildkit              12.3kB    buildkit.dockerfile.v0

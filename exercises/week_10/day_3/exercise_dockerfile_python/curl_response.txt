@@ -1,0 +1,1 @@
+{"hostname":"532bdf239d65","message":"Welcome from Dockerized Flask v2!","timestamp":"2026-08-06T20:29:40.269988","version":"1.0.0"}
